@@ -33,6 +33,8 @@
 - `src/game/scenes/GameScene.ts`: level session lifecycle and system coordination.
 - `src/game/scenes/ResultScene.ts`: game-over, campaign completion, and score submission choice.
 - `src/game/data/levels.ts`: typed maze definitions and campaign order.
+- `src/game/data/levelAudit.ts`: flood-fill reachability audit for player starts, gifts, exits, enemy spawns, and all walkable cells.
+- `scripts/audit-levels.ts`: command-line report for every authored sample level.
 - `src/game/entities/Player.ts`: player input, grid movement, facing, collision, and action.
 - `src/game/entities/Enemy.ts`: enemy movement state and type-specific decisions.
 - `src/game/systems/IceSystem.ts`: create/break ice in the facing direction.
@@ -66,6 +68,7 @@
 
 - [x] Define a typed tile grid for walls, paths, gifts, exit, ice, and enemy spawn points.
 - [x] Author a large first maze and two follow-up levels that introduce movement, collecting, ice actions, and enemy behaviors in sequence.
+- [x] Keep vertical openings away from horizontal divider rows and audit the whole floor graph from the player start.
 - [x] Introduce one new idea at a time across the sample levels: collect and exit; create/break ice; then combine ice with a new enemy behavior.
 - [x] Draw a cohesive small palette and original pixel sprites for Santa, Snow Maiden, gingerbread guide Kuki, gifts, trees, snow, ice, and the three enemy types.
 - [x] Load the art assets in `BootScene.ts` and render tile layers with nearest-neighbor scaling.
@@ -118,6 +121,7 @@
 
 - [x] Document the game loop, controls, sample campaign, score rules, and local save behavior.
 - [x] Document how to run the game locally and build its static HTML5 output.
+- [x] Run `npm run audit:levels` before production bundling to catch unreachable maze cells and goals.
 - [x] Document the Supabase project setup and environment variables needed to enable online scores.
 - [x] Update the spec with any design decisions made while implementing the prototype.
 

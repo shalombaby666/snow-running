@@ -1,3 +1,5 @@
+import { auditLevelReachability } from './levelAudit';
+
 export type EnemyKind = 'patroller' | 'chaser' | 'ambusher';
 export type Point = { x: number; y: number };
 
@@ -37,9 +39,9 @@ function buildWalls(width: number, height: number, variant: number): Set<string>
   const verticals = [5, 10, 15, 20, 25];
   for (const [index, x] of verticals.entries()) {
     const openings = new Set([
-      2 + ((variant + index) % 3),
-      7 + ((variant * 2 + index) % 3),
-      11 + ((variant + index * 2) % 2),
+      2 + ((variant + index) % 2),
+      6 + ((variant * 2 + index) % 3),
+      11 + ((variant + index * 2) % 3),
     ]);
     for (let y = 1; y < height - 1; y += 1) {
       if (!openings.has(y)) add(x, y);
@@ -49,29 +51,15 @@ function buildWalls(width: number, height: number, variant: number): Set<string>
   const horizontals = [4, 9];
   for (const [index, y] of horizontals.entries()) {
     const openings = new Set([
-      3 + ((variant + index * 3) % 4),
-      14 + ((variant + index) % 4),
-      24 + ((variant * 2 + index) % 3),
+      3 + (variant % 2),
+      13 + ((variant + index) % 2),
+      23 + ((variant * 2 + index) % 2),
     ]);
     for (let x = 1; x < width - 1; x += 1) {
       if (!openings.has(x)) add(x, y);
     }
   }
 
-  // Small winter hedges make each sector feel like a room without sealing routes.
-  const hedges = [
-    [{ x: 2, y: 6 }, { x: 3, y: 6 }, { x: 4, y: 6 }],
-    [{ x: 7, y: 12 }, { x: 8, y: 12 }],
-    [{ x: 12, y: 2 }, { x: 13, y: 2 }, { x: 14, y: 2 }],
-    [{ x: 17, y: 6 }, { x: 18, y: 6 }],
-    [{ x: 22, y: 12 }, { x: 23, y: 12 }, { x: 24, y: 12 }],
-    [{ x: 27, y: 2 }, { x: 27, y: 3 }],
-  ];
-  for (const group of hedges) {
-    for (const point of group) {
-      if ((point.x + point.y + variant) % 2 === 0) add(point.x, point.y);
-    }
-  }
   return walls;
 }
 
@@ -103,6 +91,13 @@ export const SAMPLE_LEVELS: LevelDefinition[] = [
   makeLevel(2, 'Следы в лесу', 'ЛЕС СЕВЕРНЫХ ОЛЕНЕЙ', 0x173e47, 0xa7d88f, 1),
   makeLevel(3, 'Мастерская огней', 'МАСТЕРСКАЯ САНТЫ', 0x29374d, 0xe8896f, 2),
 ];
+
+for (const level of SAMPLE_LEVELS) {
+  const audit = auditLevelReachability(level);
+  if (audit.issues.length > 0) {
+    throw new Error(`Level ${level.id} is not playable: ${audit.issues.join('; ')}`);
+  }
+}
 
 export function pointKey(x: number, y: number): string {
   return `${x},${y}`;

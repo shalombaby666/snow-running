@@ -47,7 +47,6 @@ export class GameScene extends Phaser.Scene {
     this.isEnding = false;
     this.invulnerableUntil = 0;
     this.paused = false;
-    this.hud = new Hud(this);
     this.loadLevel();
     this.input.keyboard?.on('keydown', this.handleKey, this);
     this.events.once('shutdown', () => this.input.keyboard?.off('keydown', this.handleKey, this));
