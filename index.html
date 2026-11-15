@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10283a" />
+    <meta name="description" content="Snow Running — рождественское пиксельное приключение Санты в ледяных лабиринтах." />
+    <title>Snow Running — Santa's Winter Maze</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Snow Running — на главную">
+          <span class="brand-mark" aria-hidden="true">✦</span>
+          <span>SNOW<span class="brand-light">RUNNING</span></span>
+        </a>
+        <div class="top-meta"><span class="snow-dot"></span> ЗИМНЯЯ АРКАДА <span class="top-divider">/</span> 2026</div>
+        <button class="sound-button" id="sound-toggle" aria-label="Звук включён" title="Звук">♫</button>
+      </header>
+
+      <main class="stage-wrap">
+        <div class="stage-frame">
+          <div id="game" aria-label="Игровое поле Snow Running"></div>
+          <div class="screen-vignette" aria-hidden="true"></div>
+          <div class="corner-label corner-left">СЕВЕРНЫЙ ПОЛЮС · 01</div>
+          <div class="corner-label corner-right">СЕЗОН 01 / СНЕЖНАЯ ТРОПА</div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-note"><span class="footer-star">✳</span> Найди подарки. Не дай холоду себя поймать.</div>
+        <div class="footer-controls"><span>P1</span><kbd>← ↑ → ↓</kbd><kbd>SPACE</kbd><span class="controls-sep">·</span><span>P2</span><kbd>WASD</kbd><kbd>E</kbd></div>
+        <div class="footer-credits">СДЕЛАНО ДЛЯ ЗИМНИХ ВЕЧЕРОВ <span>❄</span></div>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
